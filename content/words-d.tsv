@@ -1,0 +1,457 @@
+besar	big; large	adj	1		Rumah itu sangat besar.	That house is very big.	
+kecil	small; little	adj	1		Bilik saya kecil sahaja.	My room is just a small one.	
+panjang	long	adj	2		Rambut dia panjang.	Her hair is long.	
+pendek	short	adj	2		Tali ini terlalu pendek.	This rope is too short.	pendek = short in length; rendah = low, short in height
+tinggi	tall; high	adj	1		Abang saya sangat tinggi.	My older brother is very tall.	
+rendah	low; short (in height)	adj	3		Meja itu terlalu rendah.	That table is too low.	
+berat	heavy	adj	2		Beg ini sangat berat.	This bag is very heavy.	
+ringan	light (not heavy)	adj	4		Kotak itu ringan sahaja.	That box is quite light.	
+keras	hard; firm	adj	3		Roti ini sudah keras.	This bread has gone hard.	
+lembut	soft; gentle	adj	4		Bantal ini sangat lembut.	This pillow is very soft.	
+panas	hot	adj	2		Hari ini panas betul.	It is really hot today.	
+sejuk	cold; cool	adj	2		Air ini sejuk.	This water is cold.	
+hangat	warm	adj	5		Nasi itu masih hangat.	The rice is still warm.	
+lebar	wide; broad	adj	5		Jalan ini cukup lebar.	This road is wide enough.	
+sempit	narrow; cramped	adj	5		Bilik itu agak sempit.	That room is rather cramped.	
+luas	spacious; vast	adj	4		Rumah mereka sangat luas.	Their house is very spacious.	
+tebal	thick	adj	5		Buku itu tebal.	That book is thick.	
+nipis	thin (of things)	adj	5		Kertas ini terlalu nipis.	This paper is too thin.	nipis = thin for things; kurus = thin for people
+gemuk	fat	adj	4		Kucing saya gemuk.	My cat is fat.	
+kurus	thin; slim (of people)	adj	4		Dia nampak kurus sekarang.	He looks thin now.	
+penuh	full	adj	2		Bas itu sudah penuh.	That bus is already full.	
+kosong	empty	adj	3		Botol ini kosong.	This bottle is empty.	also the number zero
+basah	wet	adj	3		Baju saya basah.	My shirt is wet.	
+kering	dry	adj	3		Kain itu sudah kering.	That cloth is already dry.	
+bersih	clean	adj	2		Bilik ini sangat bersih.	This room is very clean.	
+kotor	dirty	adj	3		Kasut kamu kotor.	Your shoes are dirty.	
+kemas	neat; tidy	adj	6		Bilik dia selalu kemas.	His room is always tidy.	
+tajam	sharp	adj	5		Pisau ini sangat tajam.	This knife is very sharp.	
+kasar	rough; rude	adj	5		Jangan bercakap kasar.	Don't speak rudely.	
+kuat	strong; loud	adj	2		Dia sangat kuat.	He is very strong.	
+lemah	weak	adj	3		Badan saya masih lemah.	My body is still weak.	
+bulat	round	adj	6		Meja itu bulat.	That table is round.	
+lurus	straight	adj	6		Jalan ini lurus sahaja.	This road is just straight.	
+ketat	tight; strict	adj	6		Seluar ini terlalu ketat.	These trousers are too tight.	
+terang	bright; clear	adj	3		Bilik ini terang.	This room is bright.	
+gelap	dark	adj	3		Di luar sudah gelap.	It is already dark outside.	
+cerah	bright; clear (weather); fair (skin)	adj	5		Cuaca pagi ini cerah.	The weather is clear this morning.	
+bising	noisy	adj	4		Jangan bising, adik sedang tidur.	Don't be noisy, your little brother is sleeping.	
+senyap	quiet; silent	adj	5		Kelas itu senyap.	That class is quiet.	
+sunyi	quiet; lonely	adj	6		Kampung itu sunyi pada waktu malam.	That village is quiet at night.	
+tenang	calm	adj	4		Laut hari ini tenang.	The sea is calm today.	
+laju	fast (speed)	adj	3		Kereta itu sangat laju.	That car is very fast.	
+cepat	fast; quick	adj	1		Dia berjalan sangat cepat.	He walks very fast.	
+lambat	slow; late	adj	2		Kenapa bas ini lambat?	Why is this bus late?	
+perlahan	slow; soft (of sound)	adj	4		Kereta itu bergerak sangat perlahan.	That car is moving very slowly.	
+awal	early	adj	2		Dia selalu datang awal.	He always comes early.	
+lewat	late	adj	2		Maaf, saya lewat.	Sorry, I am late.	
+baru	new	adj	1		Saya ada telefon baru.	I have a new phone.	
+lama	old (of things); long (time)	adj	1		Kereta ini sudah lama.	This car is already old.	lama = old for things; tua = old for people
+tua	old (of people)	adj	2		Datuk saya sudah tua.	My grandfather is already old.	
+muda	young	adj	2		Cikgu itu masih muda.	That teacher is still young.	
+dewasa	adult; grown-up	adj	4		Tiket dewasa lima ringgit.	An adult ticket is five ringgit.	
+dekat	near; close	adj	1		Rumah saya dekat dengan sekolah.	My house is near the school.	
+jauh	far	adj	1		Pejabat dia jauh dari sini.	His office is far from here.	
+mahal	expensive	adj	2		Baju ini terlalu mahal.	This shirt is too expensive.	
+murah	cheap	adj	2		Makanan di sini murah.	The food here is cheap.	
+percuma	free (of charge)	adj	3		Air ini percuma.	This water is free.	
+kaya	rich	adj	3		Orang itu sangat kaya.	That person is very rich.	
+miskin	poor	adj	3		Keluarga itu miskin.	That family is poor.	
+baik	good; kind; fine	adj	1		Dia orang yang baik.	He is a good person.	
+bagus	good; great	adj	1		Idea kamu sangat bagus.	Your idea is very good.	
+elok	fine; nice; in good condition	adj	4		Kereta lama itu masih elok.	That old car is still in good condition.	
+buruk	bad; ugly	adj	2		Cuaca hari ini buruk.	The weather is bad today.	
+teruk	terrible; severe	adj	2		Keadaan jalan itu sangat teruk.	The condition of that road is very bad.	
+cantik	beautiful; pretty	adj	1		Bunga ini sangat cantik.	This flower is very beautiful.	
+lawa	pretty; good-looking	adj	5		Baju kamu lawa hari ini.	Your outfit is pretty today.	informal
+kacak	handsome	adj	5		Lelaki itu kacak.	That man is handsome.	
+comel	cute	adj	4		Anak kucing itu comel.	That kitten is cute.	
+indah	beautiful (scenery, etc.)	adj	4		Pemandangan di sini indah.	The view here is beautiful.	
+hebat	great; awesome	adj	3		Pasukan itu memang hebat.	That team is really great.	
+best	great; fun	adj	4		Makanan di sini memang best.	The food here is really great.	informal, from English
+sempurna	perfect	adj	5		Tiada orang yang sempurna.	Nobody is perfect.	
+istimewa	special	adj	4		Hari ini hari istimewa.	Today is a special day.	
+khas	special; specific	adj	4		Ini bilik khas untuk tetamu.	This is a special room for guests.	
+biasa	usual; ordinary	adj	1		Ini perkara biasa.	This is a normal thing.	
+normal	normal	adj	5		Suhu badan dia normal.	His body temperature is normal.	
+pelik	strange; weird	adj	3		Bunyi itu pelik.	That sound is strange.	
+menarik	interesting; attractive	adj	2	tarik	Cerita itu sangat menarik.	That story is very interesting.	
+bosan	bored	adj	3		Saya bosan di rumah.	I am bored at home.	
+seronok	fun; enjoyable	adj	3		Seronok betul hari ini!	Today is really fun!	
+meriah	lively; festive	adj	5		Majlis itu sangat meriah.	That event was very lively.	
+penting	important	adj	1		Ini sangat penting.	This is very important.	
+utama	main; primary	adj	3		Ini jalan utama.	This is the main road.	
+berguna	useful	adj	4	guna	Buku ini sangat berguna.	This book is very useful.	
+sesuai	suitable	adj	3		Baju ini sesuai untuk kamu.	This shirt suits you.	
+selesa	comfortable	adj	3		Kerusi ini sangat selesa.	This chair is very comfortable.	
+selamat	safe	adj	2		Tempat ini selamat.	This place is safe.	
+berbahaya	dangerous	adj	4	bahaya	Jalan ini berbahaya.	This road is dangerous.	
+betul	correct; right; true	adj	1		Jawapan kamu betul.	Your answer is correct.	
+salah	wrong	adj	1		Alamat ini salah.	This address is wrong.	
+silap	mistaken; wrong	adj	5		Maaf, saya silap.	Sorry, my mistake.	
+benar	true	adj	3		Cerita itu benar.	That story is true.	
+tepat	exact; accurate	adj	4		Jam ini tidak tepat.	This clock is not accurate.	
+sebenar	real; actual	adj	4	benar	Apa nama sebenar dia?	What is his real name?	
+senang	easy	adj	1		Kerja ini senang sahaja.	This work is quite easy.	also: at ease (senang hati = pleased)
+mudah	easy; simple	adj	2		Soalan itu mudah.	That question is easy.	
+susah	difficult; hard	adj	1		Bahasa ini tidak susah.	This language is not difficult.	
+sukar	difficult	adj	3		Peperiksaan itu sukar.	That exam was difficult.	more formal than susah
+rumit	complicated	adj	5		Masalah ini agak rumit.	This problem is rather complicated.	
+jelas	clear	adj	2		Arahan itu tidak jelas.	Those instructions are not clear.	
+pasti	sure; certain	adj	2		Saya tidak pasti.	I am not sure.	
+yakin	confident; sure	adj	3		Saya yakin kamu boleh.	I am confident you can.	
+sama	same	adj	1		Baju kita sama!	Our shirts are the same!	
+berbeza	different	adj	3	beza	Dua gambar ini berbeza.	These two pictures are different.	
+umum	general; public	adj	4		Hari ini cuti umum.	Today is a public holiday.	
+awam	public	adj	4		Ini tandas awam.	This is a public toilet.	
+peribadi	personal; private	adj	5		Ini hal peribadi saya.	This is my personal matter.	
+rasmi	official; formal	adj	4		Ini surat rasmi.	This is an official letter.	
+wajib	compulsory; obligatory	adj	5		Kelas ini wajib untuk semua pelajar.	This class is compulsory for all students.	
+halal	halal; permitted (in Islam)	adj	5		Restoran ini halal.	This restaurant is halal.	
+adil	fair; just	adj	6		Keputusan itu tidak adil.	That decision is not fair.	
+bebas	free (not restricted)	adj	4		Burung itu sudah bebas.	That bird is free now.	
+merdeka	independent (of a nation); free	adj	5		Negara kita merdeka pada tahun 1957.	Our country became independent in 1957.	
+sibuk	busy	adj	2		Ayah sibuk hari ini.	Father is busy today.	
+sesak	crowded; congested	adj	6		Jalan sesak pagi ini.	The road is congested this morning.	
+lengkap	complete	adj	4		Borang ini belum lengkap.	This form is not complete yet.	
+siap	ready; finished	adj	2		Makanan sudah siap.	The food is ready.	
+sedia	ready	adj	3		Kamu sudah sedia?	Are you ready?	
+selesai	finished; done; settled	adj	3		Kerja saya sudah selesai.	My work is done.	
+terbuka	open	adj	4	buka	Pintu itu terbuka.	That door is open.	
+rosak	broken; damaged	adj	2		Telefon saya rosak.	My phone is broken.	
+pecah	broken (shattered)	adj	4		Gelas itu sudah pecah.	That glass is broken.	
+sihat	healthy	adj	2		Nenek saya masih sihat.	My grandmother is still healthy.	
+sakit	sick; painful	adj	1		Kepala saya sakit.	My head hurts.	
+demam	feverish; having a fever	adj	3		Anak saya demam.	My child has a fever.	
+pening	dizzy	adj	5		Kepala saya pening.	I feel dizzy.	pening kepala can also mean stressed or confused
+cedera	injured	adj	5		Dua orang cedera dalam kemalangan itu.	Two people were injured in that accident.	
+penat	tired	adj	2		Saya penat sangat hari ini.	I am very tired today.	
+letih	tired; exhausted	adj	4		Ibu letih selepas bekerja.	Mother is tired after working.	
+lapar	hungry	adj	2		Saya sudah lapar.	I am hungry already.	
+kenyang	full (after eating)	adj	4		Terima kasih, saya sudah kenyang.	Thank you, I am already full.	
+haus	thirsty	adj	3		Saya haus, ada air?	I am thirsty, is there any water?	
+dahaga	thirsty	adj	6		Budak itu dahaga.	That child is thirsty.	haus and dahaga mean the same
+mengantuk	sleepy	adj	5	kantuk	Saya sangat mengantuk.	I am very sleepy.	
+aktif	active	adj	5		Dia aktif dalam sukan.	He is active in sports.	
+gembira	happy; glad	adj	2		Saya gembira dapat jumpa awak.	I am happy to meet you.	
+bahagia	happy; blissful	adj	4		Mereka hidup bahagia.	They live happily.	
+teruja	excited	adj	5	uja	Saya teruja mahu pergi bercuti.	I am excited to go on holiday.	
+sedih	sad	adj	2		Kenapa kamu sedih?	Why are you sad?	
+kecewa	disappointed	adj	4		Dia kecewa dengan keputusan itu.	He is disappointed with that result.	
+marah	angry	adj	2		Jangan marah, ya.	Don't be angry, okay?	
+takut	afraid; scared	adj	2		Adik saya takut anjing.	My little sister is afraid of dogs.	
+risau	worried	adj	3		Jangan risau, semua okey.	Don't worry, everything is okay.	
+bimbang	worried; anxious	adj	4		Ibu bimbang tentang kamu.	Mother is worried about you.	
+tertekan	stressed; under pressure	adj	6	tekan	Dia tertekan di tempat kerja.	He is stressed at work.	
+malu	shy; embarrassed	adj	3		Dia malu bercakap di depan kelas.	He is shy about speaking in front of the class.	
+bangga	proud	adj	4		Ayah bangga dengan kamu.	Father is proud of you.	
+terkejut	surprised; shocked	adj	4	kejut	Saya terkejut dengar berita itu.	I was shocked to hear that news.	
+keliru	confused	adj	5		Saya keliru dengan soalan ini.	I am confused by this question.	
+puas	satisfied	adj	4		Saya puas hati dengan kerja kamu.	I am satisfied with your work.	puas hati = satisfied, pleased
+rindu	missing (someone); longing	adj	3		Saya rindu keluarga saya.	I miss my family.	
+cemburu	jealous	adj	6		Jangan cemburu dengan orang lain.	Don't be jealous of other people.	
+bersyukur	grateful; thankful	adj	5	syukur	Kami bersyukur semua selamat.	We are thankful everyone is safe.	
+kasihan	pitiable; poor (showing sympathy)	adj	4		Kasihan budak itu.	That poor child.	
+sabar	patient	adj	4		Sabar, bas akan sampai.	Be patient, the bus will come.	
+bertuah	lucky	adj	6	tuah	Kamu sangat bertuah.	You are very lucky.	
+gila	crazy	adj	3		Idea itu gila!	That idea is crazy!	
+sedar	aware; conscious	adj	4		Dia tidak sedar saya ada di situ.	He did not realise I was there.	
+sesat	lost (having lost the way)	adj	5		Kami sesat di bandar itu.	We got lost in that town.	
+merah	red	adj	2		Saya suka baju merah itu.	I like that red shirt.	
+biru	blue	adj	3		Langit hari ini biru.	The sky is blue today.	
+hijau	green	adj	3		Daun itu hijau.	That leaf is green.	
+kuning	yellow	adj	3		Pisang itu sudah kuning.	That banana is already yellow.	
+hitam	black	adj	2		Kucing hitam itu comel.	That black cat is cute.	
+putih	white	adj	2		Dia pakai kasut putih.	He is wearing white shoes.	
+coklat	brown	adj	5		Kasut coklat itu cantik.	Those brown shoes are nice.	also means chocolate; perang is the formal word for brown
+jingga	orange (colour)	adj	6		Bunga itu berwarna jingga.	That flower is orange.	in speech, oren is more common
+ungu	purple	adj	6		Adik suka warna ungu.	My little sister likes purple.	
+kelabu	grey	adj	6		Langit kelabu pagi ini.	The sky is grey this morning.	
+merah jambu	pink	adj	6	merah	Baju bayi itu merah jambu.	That baby's outfit is pink.	
+sedap	delicious; tasty	adj	1		Nasi lemak ini sedap.	This nasi lemak is delicious.	
+manis	sweet	adj	3		Teh ini terlalu manis.	This tea is too sweet.	
+masam	sour	adj	4		Buah itu masam.	That fruit is sour.	
+pedas	spicy; hot	adj	3		Kari ini sangat pedas.	This curry is very spicy.	
+masin	salty	adj	4		Ikan ini agak masin.	This fish is rather salty.	
+pahit	bitter	adj	4		Ubat itu pahit.	That medicine is bitter.	
+tawar	bland; tasteless	adj	6		Sup ini tawar, tambah garam.	This soup is bland, add some salt.	
+segar	fresh	adj	4		Ikan di pasar itu segar.	The fish at that market is fresh.	
+busuk	rotten; smelly	adj	4		Sampah itu busuk.	That rubbish stinks.	
+wangi	fragrant	adj	5		Bunga ini wangi.	This flower smells nice.	
+rajin	hard-working; diligent	adj	3		Kakak saya rajin belajar.	My older sister studies hard.	
+malas	lazy	adj	3		Jangan malas, bangun!	Don't be lazy, get up!	
+pandai	clever; good at	adj	2		Dia pandai memasak.	She is good at cooking.	
+bijak	smart; wise	adj	4		Budak itu sangat bijak.	That child is very smart.	
+bodoh	stupid	adj	4		Itu soalan bodoh.	That is a stupid question.	rude when said of a person
+baik hati	kind; kind-hearted	adj	5	baik	Jiran saya baik hati.	My neighbour is kind.	
+jahat	bad; wicked	adj	4		Dia bukan orang jahat.	He is not a bad person.	
+sombong	arrogant; snobbish	adj	5		Jangan sombong dengan kawan.	Don't be arrogant with friends.	
+peramah	friendly	adj	6	ramah	Orang di sini peramah.	The people here are friendly.	
+rapat	close (of relationships)	adj	5		Kami kawan rapat.	We are close friends.	
+sopan	polite	adj	5		Anak itu sangat sopan.	That child is very polite.	
+jujur	honest	adj	5		Dia seorang yang jujur.	He is an honest person.	
+ikhlas	sincere	adj	6		Saya ikhlas mahu tolong.	I sincerely want to help.	
+berani	brave	adj	4		Budak kecil itu sangat berani.	That little child is very brave.	
+degil	stubborn	adj	6		Kenapa kamu degil sangat?	Why are you so stubborn?	
+nakal	naughty	adj	6		Kucing saya sangat nakal.	My cat is very naughty.	
+garang	fierce; strict	adj	6		Cikgu kami garang.	Our teacher is strict.	
+kelakar	funny	adj	5		Dia memang kelakar.	He is really funny.	
+serius	serious	adj	3		Ini masalah serius.	This is a serious problem.	
+berhati-hati	careful	adj	5	hati	Sila berhati-hati di jalan raya.	Please be careful on the road.	
+bertanggungjawab	responsible	adj	6	tanggungjawab	Dia pekerja yang bertanggungjawab.	He is a responsible worker.	
+kreatif	creative	adj	6		Pelajar itu sangat kreatif.	That student is very creative.	
+berminat	interested	adj	5	minat	Saya berminat dengan kerja itu.	I am interested in that job.	
+terkenal	famous; well-known	adj	3	kenal	Penyanyi itu sangat terkenal.	That singer is very famous.	
+popular	popular	adj	4		Lagu itu sangat popular.	That song is very popular.	
+terbaik	best	adj	3	baik	Ini restoran terbaik di sini.	This is the best restaurant here.	ter- + adjective = the most ...
+terbesar	biggest; largest	adj	5	besar	Ini bandar terbesar di Malaysia.	This is the biggest city in Malaysia.	
+terbaru	latest; newest	adj	5	baru	Ini lagu terbaru dia.	This is her latest song.	
+terkini	latest; up-to-date	adj	5	kini	Apa berita terkini?	What is the latest news?	
+terakhir	last; final	adj	3	akhir	Ini bas terakhir malam ini.	This is the last bus tonight.	
+terdekat	nearest	adj	5	dekat	Di mana hospital terdekat?	Where is the nearest hospital?	
+berdekatan	nearby	adj	6	dekat	Kami makan di restoran berdekatan.	We ate at a nearby restaurant.	
+berjaya	successful	adj	3	jaya	Projek itu berjaya.	That project was successful.	
+berharga	valuable; precious	adj	6	harga	Masa itu sangat berharga.	Time is very precious.	
+berkaitan	related; relevant	adj	5	kait	Dua perkara ini berkaitan.	These two matters are related.	
+tambahan	additional; extra	adj	5	tambah	Saya ada kelas tambahan petang ini.	I have an extra class this afternoon.	
+segera	immediate; urgent	adj	5		Kami perlukan bantuan segera.	We need immediate help.	
+tetap	fixed; permanent	adj	4		Dia ada kerja tetap.	He has a permanent job.	
+sementara	temporary	adj	6		Ini kerja sementara sahaja.	This is only a temporary job.	
+bujang	single; unmarried	adj	6		Abang saya masih bujang.	My older brother is still single.	
+moden	modern	adj	4		Bangunan itu sangat moden.	That building is very modern.	
+canggih	sophisticated; high-tech	adj	6		Telefon baru ini canggih.	This new phone is high-tech.	
+digital	digital	adj	6		Saya beli kamera digital.	I bought a digital camera.	
+dalam talian	online	adj	6		Saya beli baju dalam talian.	I buy clothes online.	official term; online is also common in speech
+sosial	social	adj	4		Dia aktif di media sosial.	He is active on social media.	
+tempatan	local	adj	5	tempat	Saya suka buah tempatan.	I like local fruit.	
+asing	foreign	adj	4		Dia belajar bahasa asing.	He is learning a foreign language.	
+antarabangsa	international	adj	5		Ini sekolah antarabangsa.	This is an international school.	
+kebangsaan	national	adj	5	bangsa	Bahasa Melayu ialah bahasa kebangsaan.	Malay is the national language.	
+maju	advanced; developed	adj	4		Jepun ialah negara maju.	Japan is a developed country.	
+aman	peaceful	adj	4		Kampung ini sangat aman.	This village is very peaceful.	
+lancar	smooth; fluent	adj	6		Dia lancar berbahasa Melayu.	He speaks Malay fluently.	
+masalah	problem	n	1		Tidak ada masalah.	There is no problem.	
+cara	way; method	n	1		Ini cara yang betul.	This is the right way.	
+perkara	matter; thing (abstract)	n	1		Itu perkara kecil sahaja.	That is just a small matter.	
+benda	thing; object	n	1		Apa benda ini?	What is this thing?	
+barang	goods; things; items	n	1		Barang di kedai ini murah.	The goods in this shop are cheap.	
+hal	matter; affair	n	1		Saya ada hal penting hari ini.	I have an important matter today.	
+sebab	reason; cause	n	1		Apa sebab dia marah?	What is the reason he is angry?	also used to mean because
+tempat	place	n	1		Tempat ini sangat cantik.	This place is very beautiful.	
+kawasan	area	n	3		Kawasan ini sangat sunyi.	This area is very quiet.	
+masa	time	n	1		Saya tidak ada masa.	I have no time.	
+masa depan	future	n	3		Fikir tentang masa depan kamu.	Think about your future.	
+sejarah	history	n	3		Buku ini tentang sejarah Melaka.	This book is about the history of Melaka.	
+nama	name	n	1		Siapa nama awak?	What is your name?	
+umur	age	n	2		Berapa umur kamu?	How old are you?	
+jenis	type; kind	n	1		Ada banyak jenis buah di sini.	There are many kinds of fruit here.	
+bahagian	part; section	n	2	bahagi	Bahagian ini paling susah.	This part is the hardest.	
+contoh	example	n	2		Boleh beri satu contoh?	Can you give an example?	
+soalan	question	n	1	soal	Saya ada satu soalan.	I have a question.	
+jawapan	answer	n	2	jawab	Apa jawapan kamu?	What is your answer?	
+keputusan	decision; result	n	2	putus	Ini keputusan saya.	This is my decision.	
+peluang	chance; opportunity	n	2		Beri saya satu peluang lagi.	Give me one more chance.	
+pilihan	choice; option	n	3	pilih	Kita tidak ada pilihan lain.	We have no other choice.	
+perubahan	change	n	2	ubah	Ada banyak perubahan di sini.	There are many changes here.	
+pengalaman	experience	n	2	alam	Dia ada banyak pengalaman.	He has a lot of experience.	
+keadaan	situation; condition	n	1	ada	Bagaimana keadaan dia sekarang?	How is he doing now?	
+idea	idea	n	2		Itu idea yang bagus!	That is a great idea!	
+pendapat	opinion	n	2	dapat	Apa pendapat kamu?	What is your opinion?	
+fikiran	thought; mind	n	2	fikir	Dia sudah ubah fikiran.	He has changed his mind.	
+maksud	meaning; intention	n	2		Apa maksud kamu?	What do you mean?	
+tujuan	purpose; aim	n	3	tuju	Apa tujuan kamu datang?	What is your purpose in coming?	
+rancangan	plan; (TV) programme	n	2	rancang	Apa rancangan kamu esok?	What are your plans tomorrow?	
+projek	project	n	3		Projek ini belum siap.	This project is not finished yet.	
+tugas	duty; task	n	3		Ini tugas saya.	This is my duty.	
+tanggungjawab	responsibility	n	3		Ini tanggungjawab kita semua.	This is the responsibility of us all.	
+peranan	role	n	4	peran	Ibu bapa ada peranan penting.	Parents have an important role.	
+hak	right (entitlement)	n	4		Itu hak kamu.	That is your right.	
+kuasa	power; authority	n	4		Dia tidak ada kuasa.	He has no power.	
+kesan	effect; impact; mark	n	3		Ubat itu tidak ada kesan.	That medicine has no effect.	
+hasil	result; product; yield	n	3		Hasil kerja kamu bagus.	The result of your work is good.	
+kejayaan	success	n	3	jaya	Tahniah atas kejayaan kamu!	Congratulations on your success!	
+kesilapan	mistake; error	n	4	silap	Semua orang buat kesilapan.	Everyone makes mistakes.	
+kebenaran	truth; permission	n	4	benar	Saya mahu tahu kebenaran.	I want to know the truth.	
+kelebihan	advantage; strength	n	5	lebih	Apa kelebihan telefon ini?	What are the advantages of this phone?	
+keperluan	need; necessity	n	4	perlu	Air ialah keperluan asas.	Water is a basic necessity.	
+usaha	effort	n	2		Teruskan usaha kamu.	Keep up your effort.	
+tindakan	action	n	3	tindak	Kita perlu ambil tindakan sekarang.	We need to take action now.	
+proses	process	n	4		Proses ini ambil masa.	This process takes time.	
+sistem	system	n	3		Sistem baru itu lebih cepat.	That new system is faster.	
+peraturan	rule; regulation	n	3	atur	Sila ikut peraturan sekolah.	Please follow the school rules.	
+syarat	condition; requirement	n	4		Apa syarat untuk kerja ini?	What are the requirements for this job?	
+tahap	level; stage	n	4		Ini tahap yang paling susah.	This is the hardest level.	
+bentuk	shape; form	n	4		Bentuk kek itu bulat.	The shape of that cake is round.	
+warna	colour	n	2		Kamu suka warna apa?	What colour do you like?	
+bunyi	sound	n	3		Bunyi apa itu?	What is that sound?	
+suara	voice	n	2		Suara dia sangat kuat.	His voice is very loud.	
+bau	smell	n	3		Bau apa ini?	What is this smell?	
+rasa	taste; feeling	n	1		Rasa kari ini sedap.	The taste of this curry is delicious.	also a verb: to feel, to taste
+perasaan	feeling	n	2	rasa	Saya faham perasaan kamu.	I understand your feelings.	
+cinta	love	n	2		Ini cerita cinta.	This is a love story.	
+kebahagiaan	happiness	n	5	bahagia	Wang tidak boleh beli kebahagiaan.	Money cannot buy happiness.	
+harapan	hope	n	3	harap	Kita masih ada harapan.	We still have hope.	
+impian	dream; aspiration	n	4	impi	Apa impian kamu?	What is your dream?	
+mimpi	dream (while asleep)	n	5		Itu hanya mimpi buruk.	That was only a bad dream.	
+semangat	spirit; enthusiasm	n	4		Semangat pasukan itu sangat tinggi.	That team's spirit is very high.	
+kesihatan	health	n	2	sihat	Jaga kesihatan kamu.	Look after your health.	
+keselamatan	safety; security	n	3	selamat	Keselamatan kamu lebih penting.	Your safety is more important.	
+kebebasan	freedom	n	4	bebas	Semua orang mahu kebebasan.	Everyone wants freedom.	
+hidup	life	n	1		Hidup ini indah.	Life is beautiful.	also a verb (to live) and adjective (alive)
+kehidupan	life; way of living	n	2	hidup	Kehidupan di bandar sangat sibuk.	Life in the city is very busy.	
+kematian	death	n	4	mati	Kematian dia mengejutkan kami.	His death shocked us.	
+nasib	luck; fate	n	4		Nasib kamu baik hari ini.	Your luck is good today.	
+dunia	world	n	1		Dia mahu melihat dunia.	He wants to see the world.	
+kenangan	memory; memories	n	5	kenang	Ini kenangan yang manis.	This is a sweet memory.	
+perhatian	attention	n	4	hati	Sila beri perhatian.	Please pay attention.	
+minat	interest	n	3		Saya ada minat dalam muzik.	I have an interest in music.	
+hobi	hobby	n	5		Apa hobi kamu?	What is your hobby?	
+kegemaran	favourite; liking	n	5	gemar	Nasi lemak makanan kegemaran saya.	Nasi lemak is my favourite food.	
+sikap	attitude	n	4		Saya suka sikap dia.	I like his attitude.	
+kualiti	quality	n	4		Kualiti barang ini bagus.	The quality of this item is good.	
+perbezaan	difference	n	4	beza	Apa perbezaan antara dua perkataan ini?	What is the difference between these two words?	
+hubungan	relationship; connection	n	2	hubung	Hubungan kami sangat baik.	Our relationship is very good.	
+pasangan	pair; partner; couple	n	4	pasang	Mereka pasangan yang bahagia.	They are a happy couple.	
+kerjasama	cooperation	n	5		Terima kasih atas kerjasama anda.	Thank you for your cooperation.	
+bantuan	help; aid	n	2	bantu	Saya perlukan bantuan kamu.	I need your help.	
+sokongan	support	n	4	sokong	Keluarga saya selalu beri sokongan.	My family always gives support.	
+nasihat	advice	n	3		Saya mahu minta nasihat kamu.	I want to ask for your advice.	
+cadangan	suggestion; proposal	n	4	cadang	Ada cadangan lain?	Any other suggestions?	
+arahan	instruction; order	n	4	arah	Sila ikut arahan guru.	Please follow the teacher's instructions.	
+janji	promise	n	3		Jangan lupa janji kamu.	Don't forget your promise.	
+temu janji	appointment	n	6		Saya ada temu janji dengan doktor.	I have an appointment with the doctor.	also written janji temu
+rahsia	secret	n	4		Ini rahsia kita.	This is our secret.	
+maklumat	information	n	2		Di mana saya boleh dapat maklumat?	Where can I get information?	
+bukti	proof; evidence	n	4		Polis tidak ada bukti.	The police have no evidence.	
+bahan	material; ingredient	n	4		Apa bahan untuk kek ini?	What are the ingredients for this cake?	
+cerita	story	n	2		Saya suka cerita itu.	I like that story.	
+berita	news	n	2		Ada berita baik hari ini.	There is good news today.	
+mesej	message	n	2		Saya sudah hantar mesej.	I have already sent a message.	
+e-mel	email	n	4		Sila hantar e-mel kepada saya.	Please send me an email.	
+komputer	computer	n	3		Komputer saya rosak lagi.	My computer is broken again.	
+internet	internet	n	3		Internet di sini laju.	The internet here is fast.	
+laman web	website	n	5		Sila lihat laman web kami.	Please see our website.	
+aplikasi	app; application	n	5		Saya guna aplikasi ini setiap hari.	I use this app every day.	
+kata laluan	password	n	6		Saya lupa kata laluan saya.	I forgot my password.	
+akaun	account	n	5		Saya mahu buka akaun bank.	I want to open a bank account.	
+teknologi	technology	n	4		Teknologi berubah dengan cepat.	Technology changes quickly.	
+elektrik	electricity	n	5		Rumah kami tiada elektrik malam tadi.	Our house had no electricity last night.	
+program	programme; program	n	3		Saya suka program televisyen itu.	I like that television programme.	
+iklan	advertisement	n	6		Saya nampak iklan itu di televisyen.	I saw that advertisement on television.	
+gambar	picture; photo	n	2		Boleh ambil gambar kami?	Can you take our picture?	
+video	video	n	3		Saya suka tonton video lucu.	I like watching funny videos.	
+lagu	song	n	2		Saya suka lagu ini.	I like this song.	
+muzik	music	n	3		Dia suka dengar muzik.	He likes listening to music.	
+filem	film; movie	n	2		Filem itu sangat menarik.	That film is very interesting.	
+wayang	movie (at the cinema); show	n	5		Jom tengok wayang malam ini.	Let's go to the movies tonight.	tengok wayang = go to the movies
+drama	drama (TV series, play)	n	5		Ibu suka tonton drama Korea.	Mother likes watching Korean dramas.	
+permainan	game	n	3	main	Budak-budak suka permainan itu.	The kids like that game.	
+sukan	sport	n	3		Sukan baik untuk kesihatan.	Sport is good for your health.	
+pertandingan	competition; contest	n	4	tanding	Dia menang pertandingan itu.	He won that competition.	
+pasukan	team	n	4		Pasukan kami menang semalam.	Our team won yesterday.	
+hadiah	gift; prize	n	3		Ini hadiah untuk kamu.	This is a gift for you.	
+seni	art	n	4		Dia belajar seni di universiti.	She studies art at university.	
+budaya	culture	n	3		Saya suka budaya Malaysia.	I like Malaysian culture.	
+agama	religion	n	3		Islam ialah agama rasmi Malaysia.	Islam is the official religion of Malaysia.	
+doa	prayer	n	5		Ibu selalu baca doa untuk kami.	Mother always says a prayer for us.	
+puasa	fasting; fast	n	5		Bulan puasa bermula minggu depan.	The fasting month starts next week.	
+perayaan	festival; celebration	n	5	raya	Hari Raya ialah perayaan besar.	Hari Raya is a big festival.	
+majlis	event; ceremony; function	n	3		Ramai orang datang ke majlis itu.	Many people came to that event.	
+aktiviti	activity	n	5		Ada banyak aktiviti di sekolah.	There are many activities at school.	
+jemputan	invitation	n	6	jemput	Saya dapat jemputan ke majlis itu.	I got an invitation to that event.	
+perkahwinan	marriage; wedding	n	4	kahwin	Majlis perkahwinan mereka pada hari Sabtu.	Their wedding is on Saturday.	
+hari jadi	birthday	n	3		Esok hari jadi saya.	Tomorrow is my birthday.	
+cuti	holiday; leave	n	2		Saya mahu ambil cuti esok.	I want to take leave tomorrow.	
+percutian	holiday; vacation	n	5	cuti	Bagaimana percutian kamu?	How was your holiday?	
+perjalanan	journey; trip	n	3	jalan	Perjalanan itu ambil masa dua jam.	The journey takes two hours.	
+kemalangan	accident	n	3	malang	Ada kemalangan di jalan itu.	There is an accident on that road.	
+kecemasan	emergency	n	5	cemas	Di mana pintu kecemasan?	Where is the emergency exit?	
+bahaya	danger	n	4		Kita dalam bahaya.	We are in danger.	
+perang	war	n	4		Perang itu sudah tamat.	The war has ended.	
+jenayah	crime	n	5		Jenayah ialah masalah besar di bandar.	Crime is a big problem in cities.	
+penyakit	disease; illness	n	3	sakit	Penyakit itu sangat berbahaya.	That disease is very dangerous.	
+tekanan	pressure; stress	n	4	tekan	Dia bekerja di bawah tekanan.	He works under pressure.	
+cabaran	challenge	n	4	cabar	Ini cabaran besar untuk kami.	This is a big challenge for us.	
+penyelesaian	solution	n	5	selesai	Kita mesti cari penyelesaian.	We must find a solution.	
+kerja	work; job	n	1		Saya ada banyak kerja hari ini.	I have a lot of work today.	
+pekerjaan	occupation; job	n	3	kerja	Apa pekerjaan ayah kamu?	What is your father's occupation?	
+syarikat	company	n	2		Dia bekerja di syarikat besar.	He works at a big company.	
+mesyuarat	meeting	n	3		Saya ada mesyuarat pagi ini.	I have a meeting this morning.	
+temu duga	interview (job)	n	6		Saya ada temu duga esok.	I have an interview tomorrow.	
+gaji	salary; pay	n	2		Gaji saya masuk hari ini.	My salary comes in today.	
+perniagaan	business	n	3	niaga	Dia ada perniagaan sendiri.	He has his own business.	
+pelanggan	customer	n	3	langgan	Kedai itu ada ramai pelanggan.	That shop has many customers.	
+perkhidmatan	service	n	3	khidmat	Perkhidmatan di hotel itu bagus.	The service at that hotel is good.	
+harga	price	n	1		Berapa harga baju ini?	How much is this shirt?	
+duit	money	n	1		Saya tidak ada duit.	I have no money.	everyday word; wang is more formal
+wang	money	n	2		Dia simpan wang di bank.	He keeps money in the bank.	
+tunai	cash	n	6		Kami terima tunai sahaja.	We accept cash only.	
+baki	balance; change (money)	n	6		Ini baki wang kamu.	Here is your change.	
+bayaran	payment; fee	n	3	bayar	Berapa bayaran untuk kelas ini?	How much is the fee for this class?	
+kos	cost	n	4		Kos sara hidup di bandar tinggi.	The cost of living in the city is high.	kos sara hidup = cost of living
+cukai	tax	n	5		Harga ini termasuk cukai.	This price includes tax.	
+diskaun	discount	n	5		Ada diskaun untuk pelajar?	Is there a discount for students?	
+jualan	sale; sales	n	5	jual	Ada jualan murah di kedai itu.	There is a sale at that shop.	
+hutang	debt	n	5		Dia ada banyak hutang.	He has a lot of debt.	
+sewa	rent	n	5		Sewa rumah di sini mahal.	House rent here is expensive.	
+bil	bill	n	5		Saya belum bayar bil elektrik.	I haven't paid the electricity bill yet.	
+resit	receipt	n	6		Boleh saya minta resit?	May I have a receipt?	
+tempahan	booking; order	n	6	tempah	Saya ada tempahan untuk dua orang.	I have a booking for two people.	
+pesanan	order; message	n	6	pesan	Pesanan kamu sudah sampai.	Your order has arrived.	
+ekonomi	economy	n	4		Ekonomi negara semakin baik.	The country's economy is getting better.	
+borang	form (to fill in)	n	5		Sila isi borang ini.	Please fill in this form.	
+senarai	list	n	5		Nama kamu ada dalam senarai.	Your name is on the list.	
+jadual	schedule; timetable	n	5		Sila lihat jadual bas.	Please look at the bus timetable.	
+tarikh	date	n	3		Apa tarikh hari ini?	What is the date today?	
+alamat	address	n	3		Apa alamat rumah kamu?	What is your home address?	
+kumpulan	group	n	3	kumpul	Kami belajar dalam kumpulan kecil.	We study in small groups.	
+pelajaran	lesson; studies	n	2	ajar	Pelajaran hari ini senang.	Today's lesson is easy.	
+pendidikan	education	n	4	didik	Pendidikan sangat penting untuk anak-anak.	Education is very important for children.	
+kelas	class	n	2		Kelas mula pukul lapan pagi.	Class starts at eight in the morning.	
+kursus	course	n	5		Saya ambil kursus bahasa Melayu.	I am taking a Malay language course.	
+subjek	subject (school)	n	5		Apa subjek yang kamu suka?	What subject do you like?	
+peperiksaan	examination; exam	n	3	periksa	Peperiksaan akan bermula minggu depan.	The exam will start next week.	
+ujian	test	n	4	uji	Esok ada ujian matematik.	There is a maths test tomorrow.	
+markah	marks; score	n	5		Dia dapat markah penuh.	She got full marks.	
+latihan	exercise; practice; training	n	4	latih	Buat latihan ini di rumah.	Do this exercise at home.	
+kerja rumah	homework	n	6	kerja	Sudah siap kerja rumah kamu?	Have you finished your homework?	
+nota	note; notes	n	6		Boleh saya pinjam nota kamu?	May I borrow your notes?	
+ilmu	knowledge	n	5		Ilmu itu sangat berharga.	Knowledge is very valuable.	
+sains	science	n	5		Saya suka belajar sains.	I like studying science.	
+matematik	mathematics	n	6		Matematik bukan subjek yang susah.	Mathematics is not a difficult subject.	
+bahasa	language	n	1		Saya belajar bahasa Melayu.	I am learning Malay.	
+perkataan	word	n	3	kata	Saya tidak tahu perkataan itu.	I don't know that word.	
+ayat	sentence	n	3		Sila baca ayat ini.	Please read this sentence.	
+huruf	letter (of the alphabet)	n	6		Tulis nama dengan huruf besar.	Write the name in capital letters.	
+sebutan	pronunciation	n	6	sebut	Sebutan kamu sangat bagus.	Your pronunciation is very good.	
+tatabahasa	grammar	n	6		Tatabahasa Melayu tidak susah.	Malay grammar is not difficult.	
+muka surat	page	n	6		Sila buka muka surat sepuluh.	Please open to page ten.	
+tajuk	title; topic	n	6		Apa tajuk buku itu?	What is the title of that book?	
+isu	issue	n	5		Ini isu yang penting.	This is an important issue.	
+perbualan	conversation	n	6	bual	Perbualan kami sangat pendek.	Our conversation was very short.	
+kerajaan	government	n	2	raja	Kerajaan akan bina sekolah baru.	The government will build a new school.	
+negara	country; nation	n	1		Malaysia negara yang cantik.	Malaysia is a beautiful country.	
+negeri	state (of a country)	n	3		Kamu berasal dari negeri mana?	Which state are you from?	
+undang-undang	law	n	3		Semua orang mesti ikut undang-undang.	Everyone must obey the law.	
+masyarakat	society; community	n	3		Masyarakat di sini sangat mesra.	The community here is very friendly.	
+rakyat	people (of a country); citizens	n	2		Rakyat Malaysia suka makan.	Malaysians love to eat.	
+penduduk	residents; population	n	4	duduk	Penduduk di sini sangat peramah.	The residents here are very friendly.	
+bangsa	race; nation	n	4		Malaysia ada banyak bangsa dan budaya.	Malaysia has many races and cultures.	
+politik	politics	n	4		Saya tidak minat politik.	I am not interested in politics.	
+pilihan raya	election	n	6		Pilihan raya tahun ini sangat penting.	This year's election is very important.	
+kes	case	n	5		Polis masih siasat kes itu.	The police are still investigating that case.	
+saman	summons; traffic ticket	n	6		Saya dapat saman semalam.	I got a ticket yesterday.	
+lesen	licence	n	5		Kamu ada lesen memandu?	Do you have a driving licence?	
+kemudahan	facility; convenience	n	5	mudah	Hotel itu ada banyak kemudahan.	That hotel has many facilities.	
+alam sekitar	environment	n	6		Kita mesti jaga alam sekitar.	We must look after the environment.	
+jumlah	total; amount	n	3		Berapa jumlah bayaran saya?	How much is my total payment?	
+nombor	number	n	1		Apa nombor telefon kamu?	What is your phone number?	
+saiz	size	n	3		Ada saiz yang lebih besar?	Is there a bigger size?	
+peratus	percent	n	4		Harga naik sepuluh peratus.	Prices went up ten percent.	
+kadar	rate	n	5		Kadar jenayah di sini rendah.	The crime rate here is low.	
+jarak	distance	n	5		Berapa jarak dari sini ke bandar?	How far is it from here to town?	
+suhu	temperature	n	5		Suhu hari ini sangat tinggi.	The temperature today is very high.	
+giliran	turn	n	6	gilir	Sekarang giliran kamu.	Now it is your turn.	
+permulaan	beginning; start	n	6	mula	Ini baru permulaan.	This is only the beginning.	
+kejadian	incident; occurrence	n	4	jadi	Kejadian itu berlaku malam tadi.	The incident happened last night.	
+kemungkinan	possibility	n	5	mungkin	Ada kemungkinan hujan petang ini.	There is a possibility of rain this afternoon.	
