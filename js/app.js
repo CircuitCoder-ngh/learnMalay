@@ -3,7 +3,7 @@
 import { h, svg, dayNumber, dayLabel, plural, norm } from './util.js';
 import { get, save, settings, setSetting, onSetting, today, streak, exportData, importData, reset } from './store.js';
 import { statusOf, STATUS_LABEL } from './srs.js';
-import { speak, onVoices, availableVoices, currentVoice, hasVoice, voiceIsFallback, selectVoice } from './speech.js';
+import { speak, onVoices, availableVoices, currentVoice, hasVoice, voiceIsFallback, voiceIsOnline, selectVoice } from './speech.js';
 import { WORDS, TOTAL, UNITS, UNIT_SIZE, POS_LABEL, counts, coverage, readableSentences } from './vocab.js';
 import { LESSONS } from './data/grammar.js';
 import { runSession, plan } from './session.js';
@@ -472,10 +472,13 @@ function settingsView() {
       ? 'This browser has no Malay voice, so audio and listening exercises are hidden. Chrome on Android, Safari on iPhone and Mac, and Microsoft Edge usually include one; you may need to add Malay in your device’s text-to-speech settings.'
       : voiceIsFallback()
         ? 'No Malay voice found, so an Indonesian voice is used. The pronunciation is very close.'
-        : 'Using your device’s Malay voice.';
+        : 'Using a Malay voice.';
+    const online = hasVoice() && voiceIsOnline()
+      ? ' This voice is streamed from the internet, so it can be slow or silent on a weak connection. A voice marked “on this device” is more reliable.'
+      : '';
     voiceRow.replaceChildren(
-      row('Voice', msg, voices.length
-        ? h('select', { 'aria-label': 'Voice', onchange: (e) => setSetting('voiceURI', e.target.value) }, voices.map((v) => h('option', { value: v.voiceURI, selected: currentVoice() === v }, `${v.name} (${v.lang})`)))
+      row('Voice', msg + online, voices.length
+        ? h('select', { 'aria-label': 'Voice', onchange: (e) => setSetting('voiceURI', e.target.value) }, voices.map((v) => h('option', { value: v.voiceURI, selected: currentVoice() === v }, `${v.name} (${v.lang}) · ${v.localService ? 'on this device' : 'needs internet'}`)))
         : h('span', { class: 'muted small' }, 'Not available')),
       hasVoice() ? row('Test', null, h('button', { class: 'btn', onclick: () => speak('Selamat datang. Apa khabar?') }, 'Play sample')) : null,
     );

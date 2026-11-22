@@ -23,10 +23,14 @@ export function icon(path, size = 20) {
 
 // Hidden by CSS when the browser has no Malay (or Indonesian) voice.
 export function audioButton(text, size = '') {
-  return h('button', {
+  const btn = h('button', {
     class: `audio-btn ${size}`, type: 'button', 'aria-label': `Listen: ${text}`, title: 'Listen',
-    onclick: (e) => { e.stopPropagation(); speak(text); },
+    onclick: (e) => {
+      e.stopPropagation();
+      speak(text, { onState: (s) => { btn.classList.toggle('busy', s === 'loading'); btn.classList.toggle('playing', s === 'playing'); } });
+    },
   }, icon(SPEAKER, size === 'xl' ? 34 : size === 'lg' ? 24 : 18));
+  return btn;
 }
 
 // "*word*" marks Malay (tap to hear), "**text**" marks emphasis.
