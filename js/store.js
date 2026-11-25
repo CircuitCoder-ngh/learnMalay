@@ -1,8 +1,10 @@
-// Persistent learner state (localStorage).
+// Persistent learner state for the active course (localStorage).
 
 import { dayNumber } from './util.js';
+import { C, S } from './course.js';
 
-const KEY = 'lancar.v1';
+// Each course keeps its own progress, under the key its original site used.
+const KEY = C.storeKey;
 
 const DEFAULTS = () => ({
   v: 1,
@@ -69,13 +71,13 @@ export function streak() {
 }
 
 export function exportData() {
-  return JSON.stringify({ app: 'lancar', exported: new Date().toISOString(), state }, null, 1);
+  return JSON.stringify({ app: C.exportName, exported: new Date().toISOString(), state }, null, 1);
 }
 
 export function importData(text) {
   const parsed = JSON.parse(text);
-  const incoming = parsed && parsed.app === 'lancar' ? parsed.state : null;
-  if (!incoming || typeof incoming.words !== 'object') throw new Error('This file is not a Lancar progress export.');
+  const incoming = parsed && parsed.app === C.exportName ? parsed.state : null;
+  if (!incoming || typeof incoming.words !== 'object') throw new Error(S.badImport);
   state = merge(DEFAULTS(), incoming);
   flush();
 }

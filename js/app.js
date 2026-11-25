@@ -1,20 +1,20 @@
-// Routing and screens.
+// Routing and screens for the active course. All visible text comes from the course (S).
 
-import { h, svg, dayNumber, dayLabel, plural, norm } from './util.js';
+import { h, svg, dayNumber, dayLabel, norm } from './util.js';
+import { COURSE_ID, COURSES, C, S, switchCourse } from './course.js';
 import { get, save, settings, setSetting, onSetting, today, streak, exportData, importData, reset } from './store.js';
-import { statusOf, STATUS_LABEL } from './srs.js';
-import { speak, onVoices, availableVoices, currentVoice, hasVoice, voiceIsFallback, voiceIsOnline, selectVoice } from './speech.js';
-import { WORDS, TOTAL, UNITS, UNIT_SIZE, POS_LABEL, counts, coverage, readableSentences } from './vocab.js';
-import { LESSONS } from './data/grammar.js';
+import { statusOf } from './srs.js';
+import { speak, onVoices, availableVoices, currentVoice, hasVoice, voiceIsOnline, selectVoice } from './speech.js';
+import { WORDS, TOTAL, UNITS, UNIT_SIZE, posLabel, counts, coverage, readableSentences } from './vocab.js';
 import { runSession, plan } from './session.js';
 import { audioButton, rich, openWord, icon } from './ui.js';
 
+const { LESSONS } = await import(`./data/${COURSE_ID}/grammar.js`);
+
 const app = document.getElementById('app');
+const T = C.targetLang;
 const STAGE_SIZE = 250;
-const STAGES = [
-  ['Asas', 'Foundations'], ['Harian', 'Everyday life'], ['Perbualan', 'Conversation'],
-  ['Cerita', 'Stories'], ['Dunia', 'The wider world'], ['Lancar', 'Fluency'],
-];
+const pct = (x) => `${x.toFixed(x < 10 ? 1 : 0)}%`;
 
 const ICONS = {
   home: 'M12 3 3 10.5V21h6v-6h6v6h6V10.5L12 3z',
@@ -24,9 +24,7 @@ const ICONS = {
   settings: 'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z',
 };
 
-const NAV = [
-  ['', 'Home', 'home'], ['words', 'Words', 'words'], ['grammar', 'Grammar', 'grammar'], ['progress', 'Progress', 'progress'], ['settings', 'Settings', 'settings'],
-];
+const NAV = [['', 'home'], ['words', 'words'], ['grammar', 'grammar'], ['progress', 'progress'], ['settings', 'settings']];
 
 // ---------- shell ----------
 
@@ -35,13 +33,24 @@ function applyTheme() {
   if (t === 'auto') document.documentElement.removeAttribute('data-theme');
   else document.documentElement.setAttribute('data-theme', t);
 }
-applyTheme();
-onSetting((k) => { if (k === 'theme') applyTheme(); if (k === 'voiceURI') selectVoice(); });
 
-function buildNav() {
+function buildShell() {
+  const root = document.documentElement;
+  root.lang = C.uiLang;
+  root.dataset.course = C.id;
+  document.title = C.title;
+  document.querySelector('.brand-name').textContent = C.brand;
+  document.querySelector('.brand-tag').textContent = C.tag;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', getComputedStyle(root).getPropertyValue('--hero-base').trim() || '#0e5a5a');
   for (const nav of document.querySelectorAll('[data-nav]')) {
-    nav.replaceChildren(...NAV.map(([route, label, ic]) => h('a', { href: `#/${route}`, dataset: { route } }, icon(ICONS[ic], 22), h('span', null, label))));
+    nav.setAttribute('aria-label', S.nav.label);
+    nav.replaceChildren(...NAV.map(([route, key]) => h('a', { href: `#/${route}`, dataset: { route } }, icon(ICONS[key], 22), h('span', null, S.nav[key]))));
   }
+  // The switch between the two courses. Each label is written in its own audience's language.
+  document.querySelector('[data-course-toggle]').replaceChildren(...COURSES.map((c) => h('button', {
+    type: 'button', lang: c.lang, class: c.id === COURSE_ID ? 'on' : '', 'aria-pressed': String(c.id === COURSE_ID),
+    onclick: () => switchCourse(c.id),
+  }, c.label)));
 }
 
 function markNav(route) {
@@ -90,14 +99,8 @@ function ring(fraction, big, small) {
   );
 }
 
-function methodPoints() {
-  return [
-    ['Most-used words first', `The ${TOTAL.toLocaleString()} words here are ranked by how often they are really used. The first few hundred already make up most of everyday speech.`],
-    ['Recall, not re-reading', 'Every word is practised by pulling it out of memory: choosing, typing, listening and filling gaps. Effortful recall is what makes memories last.'],
-    ['Reviews timed to forgetting', 'Each word returns just before you would forget it: after a day, then three, a week, and further apart each time you get it right.'],
-    ['Words inside sentences', 'Every word comes with a real sentence, and you build sentences from the words you know, so vocabulary turns into language you can use.'],
-  ];
-}
+const methodGrid = () => h('section', { class: 'method-grid' }, S.methodPoints(TOTAL).map(([t, d], i) =>
+  h('div', { class: 'card method' }, h('div', { class: 'method-n' }, String(i + 1)), h('h3', null, t), h('p', { class: 'muted' }, d))));
 
 function homeView() {
   const st = get();
@@ -112,68 +115,68 @@ function homeView() {
   const sentenceCount = readableSentences({ maxGap: 0 }).length;
   const nextLesson = LESSONS.find((l) => !st.grammar[l.id]);
   const minutes = Math.max(1, Math.round(reviewsDue * 0.2 + p.fresh.length * 0.9));
+  const greeting = c.started ? C.greeting.back : C.greeting.first;
 
   const todayCard = h('section', { class: 'card today' },
-    h('div', { class: 'kicker' }, 'Today'),
+    h('div', { class: 'kicker' }, S.today),
     hasWork
       ? [
-        h('h2', null, todayStats.t ? 'Continue today’s session' : 'Your session is ready'),
+        h('h2', null, todayStats.t ? S.continueToday : S.ready),
         h('div', { class: 'today-counts' },
-          h('div', null, h('b', null, String(reviewsDue)), plural(reviewsDue, 'review').replace(/^\d+ /, ' ') + ' due'),
-          h('div', null, h('b', null, String(p.fresh.length)), ' new ' + (p.fresh.length === 1 ? 'word' : 'words')),
-          h('div', null, h('b', null, `~${minutes}`), ' min'),
+          h('div', null, h('b', null, String(reviewsDue)), S.reviewsDue(reviewsDue)),
+          h('div', null, h('b', null, String(p.fresh.length)), S.newWords(p.fresh.length)),
+          h('div', null, h('b', null, `~${minutes}`), S.minutes),
         ),
-        h('a', { class: 'btn primary big', href: '#/learn' }, todayStats.t ? 'Continue' : 'Start session'),
+        h('a', { class: 'btn primary big', href: '#/learn' }, todayStats.t ? S.continueBtn : S.startSession),
       ]
       : [
-        h('h2', null, 'Done for today'),
-        h('p', { class: 'muted' }, c.started < TOTAL
-          ? 'Nothing is due. Your next reviews arrive tomorrow. Short daily sessions beat long occasional ones.'
-          : 'You have met every word. Keep reviewing and they will stay with you.'),
+        h('h2', null, S.doneToday),
+        h('p', { class: 'muted' }, c.started < TOTAL ? S.doneBody : S.allMetBody),
         h('div', { class: 'actions wrap start' },
-          p.remainingNew ? h('a', { class: 'btn primary', href: '#/learn?mode=more&n=5' }, 'Learn 5 more words') : null,
-          sentenceCount >= 4 ? h('a', { class: 'btn', href: '#/learn?mode=sentences' }, 'Practise sentences') : null,
+          p.remainingNew ? h('a', { class: 'btn primary', href: '#/learn?mode=more&n=5' }, S.learnMore) : null,
+          sentenceCount >= 4 ? h('a', { class: 'btn', href: '#/learn?mode=sentences' }, S.practiseSentences) : null,
+          c.learned >= 4 ? h('a', { class: 'btn', href: '#/learn?mode=dictation' }, S.dictationBtn) : null,
         ),
       ],
   );
 
-  const milestone = [50, 100, 250, 500, 750, 1000, 1250, TOTAL].find((m) => m > c.learned) || TOTAL;
+  const milestone = [50, 100, 250, 500, 750, 1000, 1250].find((m) => m > c.learned && m < TOTAL) || TOTAL;
   const progressCard = h('section', { class: 'card progress-card' },
-    ring(c.learned / TOTAL, c.learned.toLocaleString(), `of ${TOTAL.toLocaleString()} words`),
+    ring(c.learned / TOTAL, S.num(c.learned), S.ringOf(TOTAL)),
     h('div', null,
-      h('div', { class: 'kicker' }, 'What you can understand'),
-      h('div', { class: 'cov' }, h('b', null, `${cov.toFixed(cov < 10 ? 1 : 0)}%`), ' of the words in everyday Malay speech'),
-      h('p', { class: 'muted small' }, c.learned < TOTAL
-        ? `Next milestone: ${milestone.toLocaleString()} words, which covers about ${WORDS[milestone - 1].cov.toFixed(0)}%.`
-        : 'Every word on the list learned.'),
+      h('div', { class: 'kicker' }, S.understand),
+      h('div', { class: 'cov' }, h('b', null, pct(cov)), S.covText),
+      h('p', { class: 'muted small' }, c.learned < TOTAL ? S.nextMilestone(milestone, WORDS[milestone - 1].cov.toFixed(0)) : S.allLearned),
     ),
   );
 
-  const side = h('div', { class: 'grid-2' },
+  const side = h('div', { class: 'grid-3' },
     h('a', { class: 'card link-card', href: sentenceCount >= 4 ? '#/learn?mode=sentences' : '#/words' },
-      h('div', { class: 'kicker' }, 'Sentences'),
-      h('h3', null, sentenceCount ? `${plural(sentenceCount, 'sentence')} you can read` : 'Sentences unlock as you learn'),
-      h('p', { class: 'muted small' }, 'Build and listen to sentences made only of words you know.'),
+      h('div', { class: 'kicker' }, S.sentences),
+      h('h3', null, sentenceCount ? S.canRead(sentenceCount) : S.sentencesLocked),
+      h('p', { class: 'muted small' }, S.sentencesBody),
     ),
     nextLesson
       ? h('a', { class: 'card link-card', href: `#/grammar/${nextLesson.id}` },
-        h('div', { class: 'kicker' }, `Grammar · ${LESSONS.indexOf(nextLesson) + 1} of ${LESSONS.length}`),
-        h('h3', null, nextLesson.title),
-        h('p', { class: 'muted small' }, nextLesson.blurb))
-      : h('a', { class: 'card link-card', href: '#/grammar' }, h('div', { class: 'kicker' }, 'Grammar'), h('h3', null, 'All lessons complete'), h('p', { class: 'muted small' }, 'Revisit any lesson whenever you like.')),
+        h('div', { class: 'kicker' }, S.grammarOf(LESSONS.indexOf(nextLesson) + 1, LESSONS.length)),
+        h('h3', null, rich(nextLesson.title)),
+        h('p', { class: 'muted small' }, rich(nextLesson.blurb)))
+      : h('a', { class: 'card link-card', href: '#/grammar' }, h('div', { class: 'kicker' }, S.grammar), h('h3', null, S.allLessonsDone), h('p', { class: 'muted small' }, S.revisit)),
+    h('a', { class: 'card link-card', href: c.learned >= 4 ? '#/learn?mode=dictation' : '#/learn' },
+      h('div', { class: 'kicker' }, S.dictation),
+      h('h3', null, c.learned >= 4 ? S.listenType : S.dictationLocked),
+      h('p', { class: 'muted small' }, S.dictationBody),
+    ),
   );
 
   app.replaceChildren(h('div', { class: 'page home' },
     h('header', { class: 'hero' },
-      h('div', null,
-        h('h1', null, c.started ? 'Selamat kembali' : 'Selamat datang'),
-        h('p', { class: 'hero-sub' }, c.started ? 'Welcome back' : 'Welcome'),
-      ),
-      h('div', { class: `streak ${sk.doneToday ? 'lit' : ''}`, title: sk.doneToday ? 'You have studied today' : 'Study today to extend your streak' },
-        h('span', { class: 'streak-n' }, String(sk.count)), h('span', { class: 'streak-l' }, sk.count === 1 ? 'day streak' : 'day streak')),
+      h('div', null, h('h1', { lang: T }, greeting[0]), h('p', { class: 'hero-sub' }, greeting[1])),
+      h('div', { class: `streak ${sk.doneToday ? 'lit' : ''}`, title: sk.doneToday ? S.streakLit : S.streakUnlit },
+        h('span', { class: 'streak-n' }, String(sk.count)), h('span', { class: 'streak-l' }, S.dayStreak)),
     ),
     todayCard, progressCard, side, pathSection(),
-    h('p', { class: 'foot muted small' }, h('a', { href: '#/method' }, 'How this course works')),
+    h('p', { class: 'foot muted small' }, h('a', { href: '#/method' }, S.howItWorks)),
   ));
 }
 
@@ -183,84 +186,72 @@ function pathSection() {
   for (let s = 0; s * STAGE_SIZE < TOTAL; s++) {
     const from = s * STAGE_SIZE;
     const to = Math.min(TOTAL, from + STAGE_SIZE);
-    const learned = WORDS.slice(from, to).filter((w) => st.words[w.ms]?.i > 0).length;
+    const learned = WORDS.slice(from, to).filter((w) => st.words[w.word]?.i > 0).length;
     const cells = [];
     for (let u = from / UNIT_SIZE; u * UNIT_SIZE < to; u++) {
       const ws = WORDS.slice(u * UNIT_SIZE, (u + 1) * UNIT_SIZE);
-      const done = ws.filter((w) => st.words[w.ms]?.i > 0).length;
+      const done = ws.filter((w) => st.words[w.word]?.i > 0).length;
       const frac = done / ws.length;
       cells.push(h('a', {
         class: `unit ${frac === 1 ? 'full' : frac > 0 ? 'part' : ''}`, href: `#/words?unit=${u + 1}`,
         style: { '--fill': `${Math.round(frac * 100)}%` },
-        title: `Unit ${u + 1}: words ${u * UNIT_SIZE + 1}–${u * UNIT_SIZE + ws.length}, ${done} learned`,
-        'aria-label': `Unit ${u + 1}, ${done} of ${ws.length} learned`,
+        title: S.unitTitle(u + 1, u * UNIT_SIZE + 1, u * UNIT_SIZE + ws.length, done),
+        'aria-label': S.unitAria(u + 1, done, ws.length),
       }, String(u + 1)));
     }
-    const [ms, en] = STAGES[s] || [`Tahap ${s + 1}`, `Stage ${s + 1}`];
+    const [name, meaning] = C.stages[s] || [S.stage(s + 1), ''];
     stages.push(h('div', { class: 'stage-block' },
       h('div', { class: 'stage-head' },
-        h('div', null, h('span', { class: 'stage-n' }, `Stage ${s + 1}`), h('strong', { lang: 'ms' }, ms), h('span', { class: 'muted' }, ` · ${en}`)),
-        h('div', { class: 'muted small' }, `${learned}/${to - from} · reaches ${WORDS[to - 1].cov.toFixed(0)}% coverage`),
+        h('div', null, h('span', { class: 'stage-n' }, S.stage(s + 1)), h('strong', { lang: T }, name), h('span', { class: 'muted' }, ` · ${meaning}`)),
+        h('div', { class: 'muted small' }, `${learned}/${to - from} · ${S.reaches(WORDS[to - 1].cov.toFixed(0))}`),
       ),
       h('div', { class: 'units' }, cells),
     ));
   }
-  return h('section', { class: 'card path' }, h('div', { class: 'kicker' }, 'Your path'), h('h2', null, `${TOTAL.toLocaleString()} words in ${UNITS} units`), stages);
+  return h('section', { class: 'card path' }, h('div', { class: 'kicker' }, S.path), h('h2', null, S.pathTitle(TOTAL, UNITS)), stages);
 }
 
 function welcomeView() {
   let goal = settings().newPerDay;
-  const goals = [[5, 'Relaxed', '5 min a day'], [10, 'Steady', '10 min a day'], [15, 'Serious', '15 min a day'], [20, 'Intense', '20+ min a day']];
-  const picker = h('div', { class: 'goal-picker', role: 'radiogroup', 'aria-label': 'New words per day' });
-  const paint = () => picker.replaceChildren(...goals.map(([n, name, time]) => h('button', {
+  const picker = h('div', { class: 'goal-picker', role: 'radiogroup', 'aria-label': S.newPerDay });
+  const paint = () => picker.replaceChildren(...S.goals.map(([n, name, time]) => h('button', {
     class: `goal ${goal === n ? 'on' : ''}`, role: 'radio', 'aria-checked': String(goal === n), onclick: () => { goal = n; paint(); },
-  }, h('b', null, `${n} words`), h('span', null, name), h('span', { class: 'muted small' }, time))));
+  }, h('b', null, S.goalWords(n)), h('span', null, name), h('span', { class: 'muted small' }, time))));
   paint();
-  const finishIn = (n) => `${Math.ceil(TOTAL / n / 30)} months`;
   const eta = h('p', { class: 'muted small' });
-  const paintEta = () => { eta.textContent = `At ${goal} new words a day you will have met all ${TOTAL.toLocaleString()} words in about ${finishIn(goal)}.`; };
+  const paintEta = () => { eta.textContent = S.eta(goal, TOTAL, Math.ceil(TOTAL / goal / 30)); };
   picker.addEventListener('click', paintEta);
   paintEta();
   app.replaceChildren(h('div', { class: 'page welcome' },
     h('header', { class: 'hero tall' },
       h('div', null,
-        h('p', { class: 'hero-sub' }, 'Selamat datang · Welcome'),
-        h('h1', null, `Learn Malay through its ${TOTAL.toLocaleString()} most-used words`),
-        h('p', { class: 'lead' }, `A small core of words does most of the work in any language. In Malay, the ${TOTAL.toLocaleString()} words in this course account for about ${WORDS[TOTAL - 1].cov.toFixed(0)}% of all the words spoken in everyday conversation. Learn them in order of usefulness and the rest of the language opens up.`),
+        h('p', { class: 'hero-sub' }, S.heroSub),
+        h('h1', null, S.welcomeTitle(TOTAL)),
+        h('p', { class: 'lead' }, S.welcomeLead(TOTAL, WORDS[TOTAL - 1].cov.toFixed(0))),
       ),
     ),
-    h('section', { class: 'method-grid' }, methodPoints().map(([t, d], i) => h('div', { class: 'card method' }, h('div', { class: 'method-n' }, String(i + 1)), h('h3', null, t), h('p', { class: 'muted' }, d)))),
+    methodGrid(),
     h('section', { class: 'card' },
-      h('div', { class: 'kicker' }, 'Choose your pace'),
-      h('h2', null, 'How many new words a day?'),
+      h('div', { class: 'kicker' }, S.pace),
+      h('h2', null, S.howMany),
       picker, eta,
-      h('div', { class: 'actions start' }, h('button', { class: 'btn primary big', onclick: () => { setSetting('newPerDay', goal); get().onboarded = true; save(); go('learn'); } }, 'Start learning')),
-      h('p', { class: 'muted small' }, 'No account needed. Your progress is saved in this browser, and you can change the pace at any time.'),
+      h('div', { class: 'actions start' }, h('button', { class: 'btn primary big', onclick: () => { setSetting('newPerDay', goal); get().onboarded = true; save(); go('learn'); } }, S.startLearning)),
+      h('p', { class: 'muted small' }, S.noAccount),
     ),
   ));
 }
 
 function methodView() {
+  const m = S.method;
   app.replaceChildren(h('div', { class: 'page narrow' },
-    h('header', { class: 'page-head' }, h('h1', null, 'How this course works'), h('p', { class: 'muted' }, 'Four ideas from memory research, applied to Malay.')),
-    h('section', { class: 'method-grid' }, methodPoints().map(([t, d], i) => h('div', { class: 'card method' }, h('div', { class: 'method-n' }, String(i + 1)), h('h3', null, t), h('p', { class: 'muted' }, d)))),
-    h('section', { class: 'card prose' },
-      h('h2', null, 'A day of study'),
-      h('p', null, 'Open the app and press Start. The session mixes the reviews that are due with a few new words. A new word is first shown with its sound, meaning and an example; a little later you pick its meaning, then pick the word from its meaning, then type it from memory. After that it is scheduled: tomorrow, then three days, a week, and onward.'),
-      h('p', null, 'If you forget a word, it simply comes back sooner. That is the system working, not a failure.'),
-      h('h2', null, 'Where the word list comes from'),
-      h('p', null, 'The words are ordered using frequency counts from a large collection of Malay film and television subtitles, which reflect how people actually talk, combined with editorial judgement to keep the list clean and useful. The coverage percentages shown in the app are measured against that same collection.'),
-      h('h2', null, 'Why grammar is short'),
-      h('p', null, 'Malay has no verb tenses, no genders, no plural endings and no cases. The grammar lessons are brief on purpose: read one whenever you like, and spend most of your time on words and sentences.'),
-      h('h2', null, 'Getting the most out of it'),
-      h('ul', null,
-        h('li', null, 'Study a little every day. Ten minutes daily beats an hour once a week.'),
-        h('li', null, 'Say each word and sentence out loud.'),
-        h('li', null, 'Keep typing turned on. Producing a word is harder than recognising it, and that difficulty is what builds memory.'),
-        h('li', null, 'Do your reviews before adding new words. The session does this for you.'),
-      ),
-    ),
-    h('div', { class: 'actions start' }, h('a', { class: 'btn primary', href: '#/' }, 'Back to home')),
+    h('header', { class: 'page-head' }, h('h1', null, m.title), h('p', { class: 'muted' }, m.sub)),
+    methodGrid(),
+    h('section', { class: 'card prose' }, m.sections.map((sec) => [
+      h('h2', null, sec.h),
+      (sec.p || []).map((p) => h('p', null, p)),
+      sec.ul ? h('ul', null, sec.ul.map((li) => h('li', null, li))) : null,
+    ])),
+    h('div', { class: 'actions start' }, h('a', { class: 'btn primary', href: '#/' }, S.backHome)),
   ));
 }
 
@@ -273,52 +264,52 @@ function wordsView(params) {
   let unit = Number(params.get('unit')) || 0;
   let limit = 100;
   const list = h('div', { class: 'word-list' });
-  const count = h('div', { class: 'muted small' });
+  const countEl = h('div', { class: 'muted small' });
 
   const matches = (w) => {
     if (unit && w.unit !== unit - 1) return false;
-    const s = statusOf(st.words[w.ms]);
+    const s = statusOf(st.words[w.word]);
     if (filter === 'new' && s !== 'new') return false;
     if (filter === 'learning' && !(s === 'learning' || s === 'young')) return false;
     if (filter === 'known' && !(s === 'familiar' || s === 'mastered')) return false;
     if (!query) return true;
     const q = norm(query);
-    return norm(w.ms).includes(q) || w.en.some((g) => norm(g).includes(q)) || norm(w.root || '') === q;
+    return norm(w.word).includes(q) || w.gloss.some((g) => norm(g).includes(q)) || [...w.forms, ...w.alt, w.root].some((f) => f && norm(f) === q);
   };
 
   const paint = () => {
     const found = WORDS.filter(matches);
-    count.textContent = `${found.length.toLocaleString()} ${found.length === 1 ? 'word' : 'words'}`;
+    countEl.textContent = S.countWords(found.length);
     list.replaceChildren(...found.slice(0, limit).map((w) => {
-      const s = statusOf(st.words[w.ms]);
+      const s = statusOf(st.words[w.word]);
       return h('button', { class: 'word-row', onclick: () => openWord(w, paint) },
         h('span', { class: 'rank' }, String(w.rank)),
-        h('span', { class: 'w-ms', lang: 'ms' }, w.ms),
-        h('span', { class: 'w-en' }, w.en.join('; ')),
-        h('span', { class: 'w-pos' }, POS_LABEL[w.pos] || w.pos),
-        h('span', { class: `dot ${s}`, title: STATUS_LABEL[s] }),
+        h('span', { class: 'w-target', lang: T }, w.word),
+        h('span', { class: 'w-tr' }, w.gloss.join('; ')),
+        h('span', { class: 'w-pos' }, posLabel(w)),
+        h('span', { class: `dot ${s}`, title: S.status[s] }),
       );
     }));
-    if (!found.length) list.append(h('p', { class: 'muted empty' }, 'No words match.'));
-    if (found.length > limit) list.append(h('button', { class: 'btn ghost more', onclick: () => { limit += 200; paint(); } }, `Show more (${found.length - limit} left)`));
+    if (!found.length) list.append(h('p', { class: 'muted empty' }, S.noMatch));
+    if (found.length > limit) list.append(h('button', { class: 'btn ghost more', onclick: () => { limit += 200; paint(); } }, S.showMore(found.length - limit)));
   };
 
-  const chips = h('div', { class: 'chips', role: 'group', 'aria-label': 'Filter by progress' });
-  const paintChips = () => chips.replaceChildren(...[['all', 'All'], ['new', 'Not started'], ['learning', 'Learning'], ['known', 'Known well']].map(([k, label]) =>
-    h('button', { class: `chip-btn ${filter === k ? 'on' : ''}`, 'aria-pressed': String(filter === k), onclick: () => { filter = k; limit = 100; paintChips(); paint(); } }, label)));
+  const chips = h('div', { class: 'chips', role: 'group', 'aria-label': S.filterAria });
+  const paintChips = () => chips.replaceChildren(...['all', 'new', 'learning', 'known'].map((k) =>
+    h('button', { class: `chip-btn ${filter === k ? 'on' : ''}`, 'aria-pressed': String(filter === k), onclick: () => { filter = k; limit = 100; paintChips(); paint(); } }, S.filters[k])));
   paintChips();
 
-  const unitSel = h('select', { 'aria-label': 'Unit', onchange: (e) => { unit = Number(e.target.value); limit = 100; paint(); } },
-    h('option', { value: '0' }, 'All units'),
-    Array.from({ length: UNITS }, (_, i) => h('option', { value: String(i + 1), selected: unit === i + 1 }, `Unit ${i + 1} (${i * UNIT_SIZE + 1}–${Math.min(TOTAL, (i + 1) * UNIT_SIZE)})`)),
+  const unitSel = h('select', { 'aria-label': S.unit, onchange: (e) => { unit = Number(e.target.value); limit = 100; paint(); } },
+    h('option', { value: '0' }, S.allUnits),
+    Array.from({ length: UNITS }, (_, i) => h('option', { value: String(i + 1), selected: unit === i + 1 }, S.unitOption(i + 1, i * UNIT_SIZE + 1, Math.min(TOTAL, (i + 1) * UNIT_SIZE)))),
   );
-  const search = h('input', { type: 'search', placeholder: 'Search Malay or English', 'aria-label': 'Search words', oninput: (e) => { query = e.target.value; limit = 100; paint(); } });
+  const search = h('input', { type: 'search', placeholder: S.searchPlaceholder, 'aria-label': S.searchAria, oninput: (e) => { query = e.target.value; limit = 100; paint(); } });
 
   app.replaceChildren(h('div', { class: 'page' },
-    h('header', { class: 'page-head' }, h('h1', null, 'Word list'), h('p', { class: 'muted' }, `All ${TOTAL.toLocaleString()} words, most frequent first. Tap a word for its example, family and schedule.`)),
+    h('header', { class: 'page-head' }, h('h1', null, S.wordList), h('p', { class: 'muted' }, S.wordListSub(TOTAL))),
     h('div', { class: 'toolbar' }, search, unitSel),
-    h('div', { class: 'toolbar' }, chips, count),
-    h('div', { class: 'legend' }, ['new', 'learning', 'young', 'familiar', 'mastered'].map((s) => h('span', null, h('span', { class: `dot ${s}` }), STATUS_LABEL[s]))),
+    h('div', { class: 'toolbar' }, chips, countEl),
+    h('div', { class: 'legend' }, ['new', 'learning', 'young', 'familiar', 'mastered'].map((s) => h('span', null, h('span', { class: `dot ${s}` }), S.status[s]))),
     list,
   ));
   paint();
@@ -329,13 +320,13 @@ function wordsView(params) {
 function grammarView() {
   const st = get();
   app.replaceChildren(h('div', { class: 'page narrow' },
-    h('header', { class: 'page-head' }, h('h1', null, 'Grammar'), h('p', { class: 'muted' }, `${LESSONS.length} short lessons. Malay grammar is simple and regular: each lesson takes about five minutes.`)),
+    h('header', { class: 'page-head' }, h('h1', null, S.grammar), h('p', { class: 'muted' }, S.grammarSub(LESSONS.length))),
     h('div', { class: 'lesson-list' }, LESSONS.map((l, i) => {
       const done = st.grammar[l.id];
       return h('a', { class: `card lesson-card ${done ? 'done' : ''}`, href: `#/grammar/${l.id}` },
         h('div', { class: 'lesson-n' }, done ? '✓' : String(i + 1)),
-        h('div', null, h('h3', null, l.title), h('p', { class: 'muted small' }, l.blurb),
-          done ? h('p', { class: 'small done-note' }, `Completed · quiz ${done.score}/${l.quiz.length}`) : null),
+        h('div', null, h('h3', null, rich(l.title)), h('p', { class: 'muted small' }, rich(l.blurb)),
+          done ? h('p', { class: 'small done-note' }, S.lessonCompleted(done.score, l.quiz.length)) : null),
       );
     })),
   ));
@@ -355,11 +346,11 @@ function lessonView(id) {
     h('thead', null, h('tr', null, t.head.map((c) => h('th', null, rich(c))))),
     h('tbody', null, t.rows.map((r) => h('tr', null, r.map((c) => h('td', null, rich(c))))))));
   const sections = lesson.sections.map((s) => h('section', { class: 'lesson-section' },
-    s.h ? h('h2', null, s.h) : null,
+    s.h ? h('h2', null, rich(s.h)) : null,
     (s.p || []).map((p) => h('p', null, rich(p))),
     s.table ? table(s.table) : null,
-    s.ex ? h('div', { class: 'examples' }, s.ex.map(([ms, en]) => h('div', { class: 'ex-row' },
-      h('div', { class: 'ex-ms', lang: 'ms' }, ms, audioButton(ms.replace(/→/g, ','))), h('div', { class: 'ex-en' }, en)))) : null,
+    s.ex ? h('div', { class: 'examples' }, s.ex.map(([target, meaning]) => h('div', { class: 'ex-row' },
+      h('div', { class: 'ex-target', lang: T }, target, audioButton(target.replace(/[→/]/g, ','))), h('div', { class: 'ex-tr' }, meaning)))) : null,
     (s.after || []).map((p) => h('p', null, rich(p))),
     s.tip ? h('div', { class: 'tip' }, rich(s.tip)) : null,
   ));
@@ -376,22 +367,22 @@ function lessonView(id) {
         st.grammar[lesson.id] = { done: dayNumber(), score };
         save();
         result.replaceChildren(h('div', { class: 'card quiz-done' },
-          h('h3', null, score === lesson.quiz.length ? 'Sempurna! Perfect score.' : `You scored ${score} of ${lesson.quiz.length}`),
-          h('p', { class: 'muted' }, 'Lesson marked as complete. The patterns will sink in as you meet them in the example sentences.'),
+          h('h3', null, score === lesson.quiz.length ? S.perfect : S.scored(score, lesson.quiz.length)),
+          h('p', { class: 'muted' }, S.lessonDone),
           h('div', { class: 'actions start wrap' },
-            nextL ? h('a', { class: 'btn primary', href: `#/grammar/${nextL.id}` }, `Next: ${nextL.title}`) : null,
-            h('a', { class: 'btn ghost', href: '#/grammar' }, 'All lessons'))));
+            nextL ? h('a', { class: 'btn primary', href: `#/grammar/${nextL.id}` }, S.nextLesson(nextL.title.replace(/\*/g, ''))) : null,
+            h('a', { class: 'btn ghost', href: '#/grammar' }, S.allLessons))));
         result.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-    } }, h('span', { class: 'choice-text' }, o)));
+    } }, h('span', { class: 'choice-text' }, rich(o))));
     return h('div', { class: 'quiz-q' }, h('p', { class: 'q' }, h('span', { class: 'q-n' }, `${qi + 1}.`), ' ', rich(q.q)), h('div', { class: 'choices' }, buttons), why);
   });
 
   app.replaceChildren(h('div', { class: 'page narrow lesson' },
-    h('a', { class: 'back', href: '#/grammar' }, '← All lessons'),
-    h('header', { class: 'page-head' }, h('div', { class: 'kicker' }, `Lesson ${idx + 1} of ${LESSONS.length}`), h('h1', null, lesson.title), h('p', { class: 'lead' }, lesson.blurb)),
+    h('a', { class: 'back', href: '#/grammar' }, S.backLessons),
+    h('header', { class: 'page-head' }, h('div', { class: 'kicker' }, S.lessonOf(idx + 1, LESSONS.length)), h('h1', null, rich(lesson.title)), h('p', { class: 'lead' }, rich(lesson.blurb))),
     h('div', { class: 'card prose' }, sections),
-    h('section', { class: 'card' }, h('div', { class: 'kicker' }, 'Check yourself'), h('h2', null, 'Quick quiz'), quiz),
+    h('section', { class: 'card' }, h('div', { class: 'kicker' }, S.checkYourself), h('h2', null, S.quickQuiz), quiz),
     result,
   ));
 }
@@ -415,43 +406,43 @@ function progressView() {
   const sk = streak();
   const day = dayNumber();
   const by = { new: 0, learning: 0, young: 0, familiar: 0, mastered: 0 };
-  for (const w of WORDS) by[statusOf(st.words[w.ms])]++;
+  for (const w of WORDS) by[statusOf(st.words[w.word])]++;
 
   let t7 = 0, ok7 = 0;
   for (let d = day - 6; d <= day; d++) { const x = st.days[d]; if (x) { t7 += x.t; ok7 += x.ok; } }
 
+  const longDay = (d) => dayLabel(d, { weekday: 'long', day: 'numeric', month: 'short' });
   const activity = [];
   for (let d = day - 13; d <= day; d++) {
     const x = st.days[d] || { t: 0, s: 0 };
-    activity.push({ value: x.t + x.s, unit: 'answers', name: dayLabel(d, { weekday: 'long', day: 'numeric', month: 'short' }), tick: dayLabel(d, { weekday: 'narrow' }), strong: d === day });
+    activity.push({ value: x.t + x.s, unit: S.answers, name: longDay(d), tick: dayLabel(d, { weekday: 'narrow' }), strong: d === day });
   }
   const forecast = [];
   for (let d = day; d < day + 7; d++) {
     let n = 0;
-    for (const w of WORDS) { const s = st.words[w.ms]; if (s && s.i > 0 && (d === day ? s.d <= d : s.d === d)) n++; }
-    forecast.push({ value: n, unit: 'reviews due', name: d === day ? 'Today' : dayLabel(d, { weekday: 'long', day: 'numeric', month: 'short' }), tick: d === day ? 'Today' : dayLabel(d, { weekday: 'short' }), strong: d === day });
+    for (const w of WORDS) { const s = st.words[w.word]; if (s && s.i > 0 && (d === day ? s.d <= d : s.d === d)) n++; }
+    forecast.push({ value: n, unit: S.reviewsUnit, name: d === day ? S.today : longDay(d), tick: d === day ? S.today : dayLabel(d, { weekday: 'short' }), strong: d === day });
   }
 
   const order = ['mastered', 'familiar', 'young', 'learning', 'new'];
   const grammarDone = LESSONS.filter((l) => st.grammar[l.id]).length;
-  const cov = coverage();
 
   app.replaceChildren(h('div', { class: 'page' },
-    h('header', { class: 'page-head' }, h('h1', null, 'Progress')),
+    h('header', { class: 'page-head' }, h('h1', null, S.progress)),
     h('div', { class: 'stat-tiles' },
-      [[sk.count, sk.count === 1 ? 'day streak' : 'day streak'], [c.learned.toLocaleString(), 'words learned'], [`${cov.toFixed(cov < 10 ? 1 : 0)}%`, 'of everyday speech'], [t7 ? `${Math.round((ok7 / t7) * 100)}%` : '–', 'accuracy, last 7 days'], [`${grammarDone}/${LESSONS.length}`, 'grammar lessons']]
+      [[sk.count, S.dayStreak], [S.num(c.learned), S.pLearned], [pct(coverage()), S.pSpeech], [t7 ? `${Math.round((ok7 / t7) * 100)}%` : '–', S.pAccuracy], [`${grammarDone}/${LESSONS.length}`, S.pLessons]]
         .map(([n, l]) => h('div', { class: 'card stat-tile' }, h('div', { class: 'stat-n' }, String(n)), h('div', { class: 'stat-l' }, l))),
     ),
     h('section', { class: 'card' },
-      h('h2', null, 'Memory strength'),
-      h('p', { class: 'muted small' }, `How firmly each of the ${TOTAL.toLocaleString()} words is held, from untouched to long-term.`),
-      h('div', { class: 'stack', role: 'img', 'aria-label': order.map((k) => `${STATUS_LABEL[k]} ${by[k]}`).join(', ') },
-        order.filter((k) => by[k]).map((k) => h('div', { class: `seg ${k}`, style: { flexGrow: String(by[k]) }, title: `${STATUS_LABEL[k]}: ${by[k]}` }))),
-      h('div', { class: 'legend' }, order.map((k) => h('span', null, h('span', { class: `dot ${k}` }), `${STATUS_LABEL[k]} `, h('b', null, String(by[k]))))),
+      h('h2', null, S.memory),
+      h('p', { class: 'muted small' }, S.memorySub(TOTAL)),
+      h('div', { class: 'stack', role: 'img', 'aria-label': order.map((k) => `${S.status[k]} ${by[k]}`).join(', ') },
+        order.filter((k) => by[k]).map((k) => h('div', { class: `seg ${k}`, style: { flexGrow: String(by[k]) }, title: `${S.status[k]}: ${by[k]}` }))),
+      h('div', { class: 'legend' }, order.map((k) => h('span', null, h('span', { class: `dot ${k}` }), `${S.status[k]} `, h('b', null, String(by[k]))))),
     ),
     h('div', { class: 'grid-2' },
-      h('section', { class: 'card' }, h('h2', null, 'Activity'), h('p', { class: 'muted small' }, 'Questions answered per day, last 14 days'), bars(activity, { label: 'Answers per day' })),
-      h('section', { class: 'card' }, h('h2', null, 'Upcoming reviews'), h('p', { class: 'muted small' }, 'Words scheduled to come back, next 7 days'), bars(forecast, { label: 'Reviews due per day' })),
+      h('section', { class: 'card' }, h('h2', null, S.activity), h('p', { class: 'muted small' }, S.activitySub), bars(activity, { label: S.answersLabel })),
+      h('section', { class: 'card' }, h('h2', null, S.upcoming), h('p', { class: 'muted small' }, S.upcomingSub), bars(forecast, { label: S.reviewsLabel })),
     ),
   ));
 }
@@ -468,19 +459,13 @@ function settingsView() {
   const voiceRow = h('div');
   const paintVoice = () => {
     const voices = availableVoices();
-    const msg = !hasVoice()
-      ? 'This browser has no Malay voice, so audio and listening exercises are hidden. Chrome on Android, Safari on iPhone and Mac, and Microsoft Edge usually include one; you may need to add Malay in your device’s text-to-speech settings.'
-      : voiceIsFallback()
-        ? 'No Malay voice found, so an Indonesian voice is used. The pronunciation is very close.'
-        : 'Using a Malay voice.';
-    const online = hasVoice() && voiceIsOnline()
-      ? ' This voice is streamed from the internet, so it can be slow or silent on a weak connection. A voice marked “on this device” is more reliable.'
-      : '';
+    const msg = S.voiceMessage({ has: hasVoice(), lang: (currentVoice()?.lang || '').toLowerCase(), online: voiceIsOnline() });
     voiceRow.replaceChildren(
-      row('Voice', msg + online, voices.length
-        ? h('select', { 'aria-label': 'Voice', onchange: (e) => setSetting('voiceURI', e.target.value) }, voices.map((v) => h('option', { value: v.voiceURI, selected: currentVoice() === v }, `${v.name} (${v.lang}) · ${v.localService ? 'on this device' : 'needs internet'}`)))
-        : h('span', { class: 'muted small' }, 'Not available')),
-      hasVoice() ? row('Test', null, h('button', { class: 'btn', onclick: () => speak('Selamat datang. Apa khabar?') }, 'Play sample')) : null,
+      row(S.voice, msg, voices.length
+        ? h('select', { 'aria-label': S.voice, onchange: (e) => setSetting('voiceURI', e.target.value) },
+          voices.map((v) => h('option', { value: v.voiceURI, selected: currentVoice() === v }, `${v.name} (${v.lang}) · ${v.localService ? S.onDevice : S.needsInternet}`)))
+        : h('span', { class: 'muted small' }, S.notAvailable)),
+      hasVoice() ? row(S.test, null, h('button', { class: 'btn', onclick: () => speak(C.sample) }, S.playSample)) : null,
     );
   };
   paintVoice();
@@ -491,48 +476,50 @@ function settingsView() {
     if (!f) return;
     try {
       const text = await f.text();
-      if (!confirm('Replace the progress in this browser with the contents of this file?')) return;
+      if (!confirm(S.confirmImport)) return;
       importData(text);
       applyTheme();
-      alert('Progress restored.');
+      alert(S.restored);
       settingsView();
-    } catch (err) { alert(err.message || 'Could not read that file.'); }
+    } catch (err) { alert(err.message || S.cantRead); }
   } });
 
   app.replaceChildren(h('div', { class: 'page narrow' },
-    h('header', { class: 'page-head' }, h('h1', null, 'Settings')),
-    h('section', { class: 'card' }, h('h2', null, 'Study'),
-      row('New words per day', 'Reviews are never capped; only new words are.', select('newPerDay', [[5, '5 · relaxed'], [10, '10 · steady'], [15, '15 · serious'], [20, '20 · intense'], [30, '30 · sprint']], 'New words per day', Number)),
-      row('Typing exercises', 'Type words from memory. Harder than choosing, and much more effective.', toggle('typing', 'Typing exercises')),
+    h('header', { class: 'page-head' }, h('h1', null, S.settings)),
+    h('section', { class: 'card' }, h('h2', null, S.study),
+      row(S.newPerDay, S.newPerDayHelp, select('newPerDay', S.paces, S.newPerDay, Number)),
+      row(S.typing, S.typingHelp, toggle('typing', S.typing)),
     ),
-    h('section', { class: 'card' }, h('h2', null, 'Sound'),
-      row('Audio', 'Speaker buttons and listening exercises.', toggle('audio', 'Audio')),
-      row('Play automatically', 'Say each word aloud as it appears.', toggle('autoplay', 'Play automatically')),
-      row('Speaking speed', null, select('rate', [[0.7, 'Slow'], [0.9, 'Normal'], [1.05, 'Fast']], 'Speaking speed', Number)),
+    h('section', { class: 'card' }, h('h2', null, S.sound),
+      row(S.audio, S.audioHelp, toggle('audio', S.audio)),
+      row(S.autoplay, S.autoplayHelp, toggle('autoplay', S.autoplay)),
+      row(S.speed, null, select('rate', S.speeds, S.speed, Number)),
       voiceRow,
     ),
-    h('section', { class: 'card' }, h('h2', null, 'Appearance'),
-      row('Theme', null, select('theme', [['auto', 'Match device'], ['light', 'Light'], ['dark', 'Dark']], 'Theme')),
+    h('section', { class: 'card' }, h('h2', null, S.appearance),
+      row(S.theme, null, select('theme', S.themes, S.theme)),
     ),
-    h('section', { class: 'card' }, h('h2', null, 'Your data'),
-      h('p', { class: 'muted small' }, 'Progress is stored only in this browser. Export a backup to move it to another device or to keep it safe.'),
+    h('section', { class: 'card' }, h('h2', null, S.yourData),
+      h('p', { class: 'muted small' }, S.dataHelp),
       h('div', { class: 'actions start wrap' },
         h('button', { class: 'btn', onclick: () => {
-          const a = h('a', { href: URL.createObjectURL(new Blob([exportData()], { type: 'application/json' })), download: `lancar-progress-${new Date().toISOString().slice(0, 10)}.json` });
+          const a = h('a', { href: URL.createObjectURL(new Blob([exportData()], { type: 'application/json' })), download: `${S.exportFile}-${new Date().toISOString().slice(0, 10)}.json` });
           a.click();
           setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-        } }, 'Export progress'),
-        h('button', { class: 'btn', onclick: () => fileInput.click() }, 'Import progress'),
+        } }, S.exportBtn),
+        h('button', { class: 'btn', onclick: () => fileInput.click() }, S.importBtn),
         fileInput,
-        h('button', { class: 'btn danger', onclick: () => { if (confirm('Delete all progress in this browser? This cannot be undone.')) { reset(); applyTheme(); go(''); } } }, 'Reset everything'),
+        h('button', { class: 'btn danger', onclick: () => { if (confirm(S.confirmReset)) { reset(); applyTheme(); go(''); render(); } } }, S.resetAll),
       ),
     ),
-    h('p', { class: 'muted small foot' }, h('a', { href: '#/method' }, 'How this course works')),
+    h('p', { class: 'muted small foot' }, h('a', { href: '#/method' }, S.howItWorks)),
   ));
 }
 
 // ---------- boot ----------
 
-buildNav();
+applyTheme();
+onSetting((k) => { if (k === 'theme') applyTheme(); if (k === 'voiceURI') selectVoice(); });
+buildShell();
 window.addEventListener('hashchange', render);
 render();

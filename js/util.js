@@ -1,5 +1,7 @@
 // Small DOM + general helpers shared by every module.
 
+import { C } from './course.js';
+
 export function h(tag, attrs, ...children) {
   const el = document.createElement(tag);
   if (attrs) {
@@ -51,7 +53,7 @@ export function dayNumber(date = new Date()) {
 
 export function dayLabel(dayNum, opts = { weekday: 'short' }) {
   const d = new Date(dayNum * 86400000);
-  return new Intl.DateTimeFormat(undefined, { ...opts, timeZone: 'UTC' }).format(d);
+  return new Intl.DateTimeFormat(C.locale, { ...opts, timeZone: 'UTC' }).format(d);
 }
 
 // Lowercase, strip punctuation and extra spaces: used for comparing answers.
@@ -80,14 +82,4 @@ export function levenshtein(a, b) {
     prev = cur;
   }
   return prev[n];
-}
-
-export const plural = (n, one, many = one + 's') => `${n} ${n === 1 ? one : many}`;
-
-export function fmtInterval(days) {
-  if (days < 1) return 'today';
-  if (days === 1) return 'tomorrow';
-  if (days < 30) return `in ${days} days`;
-  if (days < 365) return `in ${Math.round(days / 30)} mo`;
-  return `in ${(days / 365).toFixed(1)} yr`;
 }

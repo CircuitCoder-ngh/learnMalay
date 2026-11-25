@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validates a content/words-*.tsv file. Usage: node tools/check-words.mjs content/words-a.tsv
+// Validates the content/ms/words-*.tsv files. Usage: node tools/check-ms.mjs content/ms/words-*.tsv
 import { readFileSync } from 'node:fs';
 
 const POS = new Set(['n', 'v', 'adj', 'adv', 'pron', 'prep', 'conj', 'num', 'part', 'intj', 'phrase', 'clf', 'det']);

@@ -25,11 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate content and rebuild the word list
+      - name: Validate content and rebuild both word lists
         run: |
-          node tools/check-words.mjs content/words-*.tsv
-          node tools/build-data.mjs
-          git diff --exit-code js/data/words.js
+          node tools/check-ms.mjs content/ms/words-*.tsv
+          node tools/check-en.mjs content/en/words-*.tsv
+          node tools/build-ms.mjs
+          node tools/build-en.mjs
+          git diff --exit-code js/data
       - name: Assemble site
         run: |
           mkdir _site

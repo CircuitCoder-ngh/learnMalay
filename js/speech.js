@@ -1,5 +1,5 @@
 // Text-to-speech through the browser's built-in voices (Web Speech API).
-// Prefers a Malay voice; falls back to Indonesian, whose pronunciation is very close.
+// Which voices suit the language being learned is decided by the course (voiceScore).
 //
 // Browser speech is unreliable in a few well-known ways, each handled below:
 //  - "online" voices are streamed from the internet and may start late or never;
@@ -8,6 +8,7 @@
 //  - a speaking utterance can be garbage-collected and cut off.
 
 import { settings } from './store.js';
+import { C, S } from './course.js';
 
 const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
 let voices = [];
@@ -20,12 +21,7 @@ let startTimer = null;
 let watchdog = null;
 const listeners = new Set();
 
-function score(v) {
-  const lang = (v.lang || '').toLowerCase().replace('_', '-');
-  if (lang.startsWith('ms')) return 3;
-  if (lang.startsWith('id')) return 2;
-  return 0;
-}
+const score = (v) => C.voiceScore((v.lang || '').toLowerCase().replace('_', '-'));
 
 // Voices installed on the device come first: they work offline and start instantly.
 const rank = (v) => (v.localService ? 10 : 0) + score(v);
@@ -52,7 +48,6 @@ export const availableVoices = () => voices;
 export const currentVoice = () => chosen;
 export const hasVoice = () => !!chosen;
 export const voiceIsOnline = () => !!chosen && !chosen.localService;
-export const voiceIsFallback = () => !!chosen && !chosen.lang.toLowerCase().startsWith('ms');
 export function selectVoice() { avoid = null; refresh(); }
 
 let lastToast = 0;
@@ -98,7 +93,7 @@ export function speak(text, { slow = false, onState } = {}) {
         startTimer = setTimeout(() => start(fallback, true), 120);
       } else {
         state('failed');
-        toast('The audio did not play. This voice needs an internet connection: check yours, or pick another voice in Settings.');
+        toast(S.audioFailed);
       }
     };
 

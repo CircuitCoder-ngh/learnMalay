@@ -1,6 +1,6 @@
 // Spaced-repetition scheduling (an SM-2 variant with automatic grading).
 //
-// Per-word state, stored under the Malay headword:
+// Per-word state, stored under the headword:
 //   i  interval in days (0 while the word is still in its first learning steps)
 //   e  ease multiplier
 //   d  day number the word is next due
@@ -71,13 +71,5 @@ export function statusOf(ws) {
   if (ws.i < 21) return 'familiar';
   return 'mastered';
 }
-
-export const STATUS_LABEL = {
-  new: 'Not started',
-  learning: 'Learning',
-  young: 'Fresh',
-  familiar: 'Familiar',
-  mastered: 'Mastered',
-};
 
 export const isDue = (ws, today = dayNumber()) => !!ws && (ws.i === 0 || ws.d <= today);
